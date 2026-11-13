@@ -1,0 +1,16 @@
+services:
+  redis:
+    image: redis:7-alpine
+    ports: ["6379:6379"]
+    profiles: ["scale"]
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: icewater
+      POSTGRES_PASSWORD: local_dev_only
+      POSTGRES_DB: icewater
+    ports: ["5432:5432"]
+    volumes: ["icewater_pg:/var/lib/postgresql/data"]
+    profiles: ["persistence"]
+volumes:
+  icewater_pg:

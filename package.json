@@ -1,0 +1,19 @@
+{
+  "name": "ice-and-water",
+  "private": true,
+  "version": "0.1.0",
+  "workspaces": ["apps/*", "packages/*"],
+  "scripts": {
+    "predev": "npm run build -w @icewater/shared",
+    "dev": "concurrently -k -n server,web -c blue,green \"npm run dev -w @icewater/server\" \"npm run dev -w @icewater/web\"",
+    "dev:web": "npm run dev -w @icewater/web",
+    "dev:server": "npm run dev -w @icewater/server",
+    "build": "npm run build -w @icewater/shared && npm run build -w @icewater/server && npm run build -w @icewater/web",
+    "test": "npm run test -w @icewater/server",
+    "typecheck": "npm run typecheck -w @icewater/shared && npm run typecheck -w @icewater/server && npm run typecheck -w @icewater/web"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.2",
+    "typescript": "^5.7.3"
+  }
+}

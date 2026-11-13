@@ -1,0 +1,5 @@
+# Minimal Supabase CLI config. Link it to the hosted project with:
+#   supabase link --project-ref bpklcnwrivrpisajzuyv
+# then push the migrations in ./migrations with:
+#   supabase db push
+project_id = "ice-and-water"

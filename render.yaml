@@ -1,0 +1,19 @@
+# Render Blueprint for the persistent Socket.IO game server.
+# The game server needs a long-running process with WebSockets, so it cannot run on Vercel's
+# serverless functions. Vercel hosts the Next.js site; this service hosts the game server.
+services:
+  - type: web
+    name: ice-and-water-server
+    runtime: docker
+    dockerfilePath: ./apps/server/Dockerfile
+    dockerContext: .
+    plan: starter            # always-on; the free plan sleeps and would drop live matches
+    healthCheckPath: /health
+    autoDeployTrigger: commit
+    envVars:
+      - key: CLIENT_ORIGIN
+        sync: false          # your Vercel URL(s), comma-separated, e.g. https://ice-and-water.vercel.app
+      - key: SUPABASE_URL
+        value: https://bpklcnwrivrpisajzuyv.supabase.co
+      - key: SUPABASE_SERVICE_ROLE_KEY
+        sync: false          # secret — paste in the Render dashboard, never commit
